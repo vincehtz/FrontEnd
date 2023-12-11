@@ -522,6 +522,15 @@ footer nav ul {
   flex-direction: column;
 }
 
+.modale2-body img {
+  height: 100%;
+  display: none;
+}
+
+.modale2-body img.show {
+  display: block;
+}
+
 #title,
 #category {
   width: 420px;

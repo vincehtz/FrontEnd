@@ -161,16 +161,19 @@
           id="formulaire"
         >
           <div class="ajoutPhoto">
+            <img id="imagePreview" src="#" alt="Aperçu de l'image" />
+
             <i class="fa-regular fa-image"></i>
 
             <label for="photo" class="custom"> + Ajouter photo </label>
 
             <input
               type="file"
-              accept=".jpg, .png"
+              accept=".jpg, .png, image/*"
               id="photo"
               name="photo"
               value=""
+              onchange="showImage()"
             />
             <p>jpg, png : 4mo max</p>
             <br /><br />

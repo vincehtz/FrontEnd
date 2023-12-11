@@ -163,29 +163,66 @@ function genererModale2() {
   const baliseModale2 = document.querySelector(".modale2");
   const modale2Close = document.querySelector(".modale2-close");
   const modale2Return = document.querySelector(".modale2-return");
+  const icone = document.querySelector(".ajoutPhoto i");
+  const label = document.querySelector(".ajoutPhoto label");
+  const text = document.querySelector(".ajoutPhoto p");
 
   btnAjoutPhoto.addEventListener("click", function () {
     baliseModale1.style.display = "none";
     baliseModale2.style.display = "flex";
+
+    const imageUploader = document.getElementById("photo");
+    const imagePreview = document.querySelector(".modale2-body img");
+
+    imageUploader.addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader(); // Création d'un objet FileReader
+
+        // Fonction exécutée lorsque la lecture du fichier est terminée
+        reader.onload = function (e) {
+          imagePreview.src = e.target.result; // Affichage de l'image dans l'aperçu
+          imagePreview.style.display = "block"; // Affichage de l'élément img
+          icone.style.display = "none";
+          label.style.display = "none";
+          text.style.display = "none";
+        };
+
+        // Lecture du contenu du fichier en tant que URL de données
+        reader.readAsDataURL(file);
+      }
+    });
   });
 
   modale2Close.addEventListener("click", function () {
     baliseOverlay.style.display = "none";
     baliseModale2.style.display = "none";
+    imagePreview.style.display = "none";
+    icone.style.display = "block";
+    label.style.display = "block";
+    text.style.display = "block";
   });
 
   modale2Return.addEventListener("click", function () {
     baliseModale1.style.display = "flex";
     baliseModale2.style.display = "none";
+    imagePreview.style.display = "none";
+    icone.style.display = "block";
+    label.style.display = "block";
+    text.style.display = "block";
   });
 
   baliseOverlay.addEventListener("click", function () {
     baliseOverlay.style.display = "none";
     baliseModale2.style.display = "none";
+    imagePreview.style.display = "none";
+    icone.style.display = "block";
+    label.style.display = "block";
+    text.style.display = "block";
   });
 }
 
-// SELECTEUR CATEGORIE //
+// AJOUT PROJET //
 function ajoutListenerValider() {
   // Sélection du Formulaire
   const newForm = document.querySelector(".modale2-body form");
@@ -226,8 +263,14 @@ function ajoutListenerValider() {
         console.log(data);
         const baliseModale1 = document.querySelector(".modale1");
         const baliseModale2 = document.querySelector(".modale2");
-        //const baliseFigure = document.createElement("figure");
-        //document.querySelector(".modale1-body").innerHTML = "";
+        const imagePreview = document.querySelector(".modale2-body img");
+        const icone = document.querySelector(".ajoutPhoto i");
+        const label = document.querySelector(".ajoutPhoto label");
+        const text = document.querySelector(".ajoutPhoto p");
+        imagePreview.style.display = "none";
+        icone.style.display = "block";
+        label.style.display = "block";
+        text.style.display = "block";
         baliseModale1.style.display = "flex";
         baliseModale2.style.display = "none";
         genererProjet([data]);
