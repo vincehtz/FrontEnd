@@ -231,18 +231,24 @@ function ajoutListenerValider() {
     // Empeche le refresh de la page
     event.preventDefault();
     //récupération du token
-    const token = localStorage.getItem("token");
 
     const image = document.getElementById("photo").files[0];
     const category = parseInt(
       event.target.querySelector("[name=category]").value
     );
     const titre = document.getElementById("title").value;
+
+    if (!image || !category || !titre) {
+      // Afficher un message à l'utilisateur pour lui indiquer de remplir tous les champs
+      alert("Veuillez remplir tous les champs du formulaire.");
+      return; // Arrête l'exécution si un champ est vide
+    }
+
+    const token = localStorage.getItem("token");
     const formData = new FormData();
     formData.append("image", image);
     formData.append("title", titre);
     formData.append("category", category);
-    console.log(formData);
 
     // Requete fetch
     fetch("http://localhost:5678/api/works", {
@@ -253,14 +259,12 @@ function ajoutListenerValider() {
       body: formData,
     })
       .then((res) => {
-        console.log(res);
         if (res.status == 201) {
           // si status=201 (requete acceptée)...
           return res.json(); // ...alors convertir la réponse en format JS
         }
       })
       .then((data) => {
-        console.log(data);
         const baliseModale1 = document.querySelector(".modale1");
         const baliseModale2 = document.querySelector(".modale2");
         const imagePreview = document.querySelector(".modale2-body img");
